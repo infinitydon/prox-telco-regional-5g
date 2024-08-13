@@ -6,4 +6,10 @@ metadata: # kpt-merge: kube-system/vlan-config
   annotations:
     internal.kpt.dev/upstream-identifier: '|ConfigMap|kube-system|vlan-config'
 data:
-  vlanconfig: VLAN_PARAMS
+  vlanconfig: |
+    configs:
+      - master: ens19
+        vlanIds:
+          - 108
+          - 109
+          - 110
