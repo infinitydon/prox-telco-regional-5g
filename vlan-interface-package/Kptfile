@@ -20,3 +20,18 @@ upstreamLock:
     commit: f4ef271324293a81bd80030f81625a7b51cff306
 info:
   description: this package is used to create the required VLANs in the workload clusters
+pipeline:
+  mutators:
+  - name: PackageVariant.regional-vlan-config..0
+    image: gcr.io/kpt-fn/search-replace:v0.2.0
+    configMap:
+      by-value: VLAN_PARAMS
+      put-value: |
+        configs:
+          - master: ens19
+            vlanIds:
+              - 108
+              - 109
+              - 110
+    selectors:
+    - kind: ConfigMap
