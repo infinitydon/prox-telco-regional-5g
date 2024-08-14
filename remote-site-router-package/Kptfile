@@ -20,3 +20,29 @@ upstreamLock:
     commit: ec8dbb42072405adc1925bf170b51a14d7d955c7
 info:
   description: this package is used to deploy metallb
+pipeline:
+  mutators:
+  - name: PackageVariant.regional-site-router-config..0
+    image: gcr.io/kpt-fn/search-replace:v0.2.0
+    configMap:
+      by-value: VPP_CFG
+      put-value: "lcp lcp-sync on\nlcp lcp-auto-subint on\nip table add 1\nip table add 2\nip table add 3              \ncreate sub-interfaces dpdk0 108\ncreate sub-interfaces dpdk0 109\ncreate sub-interfaces dpdk0 110\nset interface ip table dpdk0.108 1\nset interface ip table dpdk0.109 2\nset interface ip table dpdk0.110 3\nset interface state dpdk0 up\nset interface state dpdk0.108 up\nset interface state dpdk0.109 up\nset interface state dpdk0.110 up\nlcp create dpdk0 host-if dpdk0\nlcp create dpdk0.108 host-if e1\nlcp create dpdk0.109 host-if f1\nlcp create dpdk0.110 host-if n2\nset interface ip address dpdk0.108 192.168.57.1/24\nset interface ip address dpdk0.109 192.168.58.1/24\nset interface ip address dpdk0.110 192.168.59.1/24\n"
+    selectors:
+    - kind: ConfigMap
+  - name: PackageVariant.regional-site-router-config..1
+    image: gcr.io/kpt-fn/search-replace:v0.2.0
+    configMap:
+      by-value: FRR_VPP_INT_CONFIG
+      put-value: |
+        sleep 20
+        ip link add dev e1vrf type vrf table 1
+        ip link add dev f1vrf type vrf table 2
+        ip link add dev n2vrf type vrf table 3
+        ip link set dev e1vrf up
+        ip link set dev f1vrf up
+        ip link set dev n2vrf up
+        ip link set dev e1 master e1vrf
+        ip link set dev f1 master f1vrf
+        ip link set dev n2 master n2vrf
+    selectors:
+    - kind: ConfigMap
