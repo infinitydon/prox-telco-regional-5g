@@ -5,7 +5,7 @@ metadata: # kpt-merge: oai-ran-cucp/cucp-ran-amf-core
   namespace: oai-ran-cucp
   annotations:
     specializer.nephio.org/owner: req.nephio.org/v1alpha1.Dependency.amf
-    internal.kpt.dev/upstream-identifier: 'ref.nephio.org|Config|oai-ran-cucp|cucp-ran-amf-core'
+    internal.kpt.dev/upstream-identifier: ref.nephio.org|Config|oai-ran-cucp|cucp-ran-amf-core
 spec:
   config:
     apiVersion: workload.nephio.org/v1alpha1
@@ -20,8 +20,8 @@ spec:
       interfaces:
       - name: n2
         ipv4:
-          address: AMF_N2_IP
-          gateway: AMF_N2_GW
+          address: 192.168.55.2/24
+          gateway: 192.168.55.1
         vlanID: 30
       networkInstances:
       - name: vpc-ran
