@@ -52,7 +52,13 @@ spec:
           "master": "mltus_ens19_109",
           "mode": "bridge",
           "ipam": {
-            "type": "static"
+            "type": "static",
+            "routes": [
+              {
+                "dst": "192.168.54.0/24",
+                "gw": "192.168.58.1"
+              }
+            ]
           }
         }
       ]
@@ -79,7 +85,13 @@ spec:
           "master": "mltus_ens19_108",
           "mode": "bridge",
           "ipam": {
-            "type": "static"
+            "type": "static",
+            "routes": [
+              {
+                "dst": "192.168.53.0/24",
+                "gw": "192.168.57.1"
+              }
+            ]
           }
         }
       ]
