@@ -2,11 +2,11 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata: # kpt-merge: example/cucp-ran-n2
   name: cucp-ran-n2
-  namespace: example
+  namespace: oai-ran-cucp
   annotations:
-    internal.kpt.dev/upstream-identifier: 'k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-n2'
+    internal.kpt.dev/upstream-identifier: k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-n2
 spec:
-  config: |
+  config: |-
     {
       "cniVersion": "0.3.1",
       "name": "cucp-ran-n2",
@@ -16,11 +16,16 @@ spec:
           "capabilities": {
             "ips": true
           },
-          "master": "CUCP_N2_MULTUSPARENTINTERFACE",
+          "master": "mltus_ens19_110",
           "mode": "bridge",
           "ipam": {
             "type": "static",
-            "routes": [{ "dst": "AMF_N2_NETWORKADDRESS", "gw": "CUCP_N2_GW" }]
+            "routes": [
+              {
+                "dst": "192.168.55.0/24",
+                "gw": "192.168.59.1"
+              }
+            ]
           }
         }
       ]
@@ -30,11 +35,11 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata: # kpt-merge: example/cucp-ran-f1c
   name: cucp-ran-f1c
-  namespace: example
+  namespace: oai-ran-cucp
   annotations:
-    internal.kpt.dev/upstream-identifier: 'k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-f1c'
+    internal.kpt.dev/upstream-identifier: k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-f1c
 spec:
-  config: |
+  config: |-
     {
       "cniVersion": "0.3.1",
       "name": "cucp-ran-f1c",
@@ -44,11 +49,16 @@ spec:
           "capabilities": {
             "ips": true
           },
-          "master": "CUCP_F1C_MULTUSPARENTINTERFACE",
+          "master": "mltus_ens19_109",
           "mode": "bridge",
           "ipam": {
             "type": "static",
-            "routes": [{ "dst": "CUUP_F1U_NETWORKADDRESS", "gw": "CUCP_F1C_GW" }]
+            "routes": [
+              {
+                "dst": "192.168.54.0/24",
+                "gw": "192.168.58.1"
+              }
+            ]
           }
         }
       ]
@@ -58,9 +68,9 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata: # kpt-merge: example/cucp-ran-e1
   name: cucp-ran-e1
-  namespace: example
+  namespace: oai-ran-cucp
   annotations:
-    internal.kpt.dev/upstream-identifier: 'k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-e1'
+    internal.kpt.dev/upstream-identifier: k8s.cni.cncf.io|NetworkAttachmentDefinition|example|cucp-ran-e1
 spec:
   config: |-
     {
@@ -72,11 +82,16 @@ spec:
           "capabilities": {
             "ips": true
           },
-          "master": "CUCP_E1_MULTUSPARENTINTERFACE",
+          "master": "mltus_ens19_108",
           "mode": "bridge",
           "ipam": {
             "type": "static",
-            "routes": [{ "dst": "CUUP_E1_NETWORKADDRESS", "gw": "CUCP_E1_GW" }]
+            "routes": [
+              {
+                "dst": "192.168.53.0/24",
+                "gw": "192.168.57.1"
+              }
+            ]
           }
         }
       ]
